@@ -1,0 +1,57 @@
+version: 2
+
+restore_repo: &restore_repo
+  restore_cache:
+    keys:
+      - v20180720-{{ .Environment.CIRCLE_SHA1 }}
+
+restore_modules: &restore_modules
+  restore_cache:
+    keys:
+      - v20180720-modules-{{ checksum "yarn.lock" }}
+
+default: &default
+  docker:
+    # specify the version you desire here
+    - image: circleci/node:8
+  working_directory: ~/repo
+
+jobs:
+  checkout_code:
+    <<: *default
+    steps:
+      - checkout
+      - save_cache:
+          key: v20180720-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/repo
+
+  yarn_install:
+    <<: *default
+    steps:
+      - *restore_repo
+      - *restore_modules
+      - run: yarn install --pure-lockfile
+      - save_cache:
+          key: v20180720-modules-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/repo/node_modules
+
+  lint:
+    <<: *default
+    steps:
+      - *restore_repo
+      - *restore_modules
+      - run: yarn lint
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - yarn_install:
+          requires:
+            - checkout_code
+      - lint:
+          requires:
+            - yarn_install
