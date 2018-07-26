@@ -4,10 +4,10 @@ const parseArgs = require("minimist");
 const argv = parseArgs(process.argv.slice(2), {
   alias: {
     H: "hostname",
-    p: "port"
+    p: "port",
   },
   string: ["H"],
-  unknown: parameter => false
+  unknown: parameter => false,
 });
 
 const port =
@@ -22,9 +22,7 @@ const host =
   "localhost";
 module.exports = {
   env: {
-    baseUrl:
-      process.env.BASE_URL ||
-      `http://${host}:${port}`
+    baseUrl: process.env.BASE_URL || `http://${host}:${port}`,
   },
   head: {
     title: "tt1",
@@ -32,22 +30,21 @@ module.exports = {
       { charset: "utf-8" },
       {
         name: "viewport",
-        content:
-          "width=device-width, initial-scale=1"
+        content: "width=device-width, initial-scale=1",
       },
       {
         hid: "description",
         name: "description",
-        content: "Nuxt.js project"
-      }
+        content: "Nuxt.js project",
+      },
     ],
     link: [
       {
         rel: "icon",
         type: "image/x-icon",
-        href: "/favicon.ico"
-      }
-    ]
+        href: "/favicon.ico",
+      },
+    ],
   },
   /*
   ** Customize the progress-bar color
@@ -58,9 +55,6 @@ module.exports = {
   */
   css: ["~/assets/css/main.css"],
   build: {},
-  modules: [
-    "@nuxtjs/axios",
-    "~/modules/typescript.js"
-  ],
-  axios: {}
+  modules: ["@nuxtjs/axios", "~/modules/typescript.js"],
+  axios: {},
 };

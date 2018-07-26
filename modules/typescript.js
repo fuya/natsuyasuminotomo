@@ -6,14 +6,14 @@ module.exports = function() {
     const tsLoader = {
       loader: "ts-loader",
       options: {
-        appendTsSuffixTo: [/\.vue$/]
-      }
+        appendTsSuffixTo: [/\.vue$/],
+      },
     };
     // Add TypeScript loader
     config.module.rules.push(
       Object.assign(
         {
-          test: /((client|server)\.js)|(\.tsx?)$/
+          test: /((client|server)\.js)|(\.tsx?)$/,
         },
         tsLoader
       )
@@ -25,10 +25,7 @@ module.exports = function() {
       }
     }
     // Add .ts extension in webpack resolve
-    if (
-      config.resolve.extensions.indexOf(".ts") ===
-      -1
-    ) {
+    if (config.resolve.extensions.indexOf(".ts") === -1) {
       config.resolve.extensions.push(".ts");
     }
   });
