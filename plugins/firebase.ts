@@ -1,5 +1,5 @@
-import firebase from 'firebase';
-import 'firebase/database';
+import firebase from "firebase/app";
+import "firebase/database";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -9,7 +9,7 @@ if (!firebase.apps.length) {
     projectId: "bookmark-7545f",
     storageBucket: "bookmark-7545f.appspot.com",
     messagingSenderId: "54828696522"
-  })
+  });
 }
 
 export default firebase;
