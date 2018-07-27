@@ -2,8 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 import firebase from "../plugins/firebase";
 import { firebaseMutations, firebaseAction } from "vuexfire";
-const db = firebase.database();
-const articlesRef = db.ref("/articles");
+const db = firebase.firestore();
+
+const articlesRef = db.collection("articles");
 
 Vue.use(Vuex);
 

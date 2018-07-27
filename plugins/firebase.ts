@@ -1,5 +1,5 @@
 import firebase from "firebase/app";
-import "firebase/database";
+import "firebase/firestore";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -9,6 +9,9 @@ if (!firebase.apps.length) {
     projectId: "myscrap-3ae37",
     storageBucket: "myscrap-3ae37.appspot.com",
     messagingSenderId: "1017667156795"
+  });
+  firebase.firestore().settings({
+    timestampsInSnapshots: true
   });
 }
 
