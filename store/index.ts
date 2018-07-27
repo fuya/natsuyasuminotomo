@@ -12,6 +12,9 @@ const createStore = () =>
     state: {
       articles: []
     },
+    getters: {
+      articles: state => state.articles
+    },
     mutations: {
       ...firebaseMutations
     },
