@@ -2,18 +2,25 @@
   <header class="Header">
     <nuxt-link 
       to="/">
-      bookmark.fuya.info
+      スクラップブック
     </nuxt-link>
+    <HeaderUserIcon />
   </header>
 </template>
 
 <script lang="ts">
-export default {
+import Vue from "vue";
+import HeaderUserIcon from "~/components/HeaderUserIcon.vue";
+
+export default Vue.extend({
+  components: {
+    HeaderUserIcon,
+  },
   data: function() {
     return {};
   },
-  computed: {}
-};
+  computed: {},
+});
 </script>
 
 <style scoped>
