@@ -1,18 +1,30 @@
-export const state = () => ({
-  people: []
-})
+import Vue from "vue";
+import Vuex from "vuex";
+import firebase from "../plugins/firebase";
+import { firebaseMutations, firebaseAction } from "vuexfire";
+const db = firebase.firestore();
 
-export const mutations = {
-  setPeople(state, people) {
-    state.people = people
-  }
-}
+const articlesRef = db.collection("articles");
 
-export const actions = {
-  async nuxtServerInit({ commit }, { app }) {
-    const people = await app.$axios.$get(
-      "./random-data.json"
-    )
-    commit("setPeople", people.slice(0, 10))
-  }
-}
+Vue.use(Vuex);
+
+const createStore = () =>
+  new Vuex.Store({
+    state: {
+      articles: []
+    },
+    getters: {
+      articles: state => state.articles
+    },
+    mutations: {
+      ...firebaseMutations
+    },
+    actions: {
+      INIT_ARTICLES: firebaseAction(({ bindFirebaseRef }) => {
+        console.log(articlesRef);
+        bindFirebaseRef("articles", articlesRef);
+      })
+    }
+  });
+
+export default createStore;
